@@ -13,3 +13,4 @@ suno_archive_*/
 .DS_Store
 demo_archive/
 .*
+/uv.lock
