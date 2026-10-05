@@ -1,12 +1,20 @@
+# suno-archiver-m4a
+
+This is a fork that adds a --m4a option to download the **M4A** audio files, that are also used by the Web UI to hear the tracks.
+WAV is also integrated from the [original suno-archiver](https://github.com/closestfriend/suno-archiver) (thanks @GuyPaddock for the fix), but wav costs download credits.
+MP3 do not work currently as far as I tested.
+
+-- mostly original text from here, only some small fixes --
+
 # suno-archiver
 
-Archive your entire Suno music library — MP3 audio, cover art, and full metadata — with one command.
+Archive your entire Suno music library — audio, cover art, and full metadata — with one command.
 
 ![suno-archiver in action](demo.gif)
 
 ## Why
 
-Suno's web UI only lets you download tracks one at a time. If you've generated more than a handful, pulling them all by hand is tedious-to-impossible. This tool grabs your **entire** library in one command — audio, cover art, and full metadata as JSON — organized on your own disk.
+Suno's web UI only lets you download tracks one at a time. If you've generated more than a handful, pulling them all by hand is tedious-to-impossible. This tool can grab your **entire** library or the **given workspaces** in one command — audio, cover art, and full metadata as JSON — organized on your own disk.
 
 Useful if you:
 
@@ -36,15 +44,15 @@ Maintenance mode: I keep the core MP3 archive path working as long as that stays
 
 | File | Details |
 |---|---|
-| `.mp3` | Audio (Suno's MP3 stream) |
-| `.jpg` | Cover art |
-| `.json` | Full metadata — prompt, tags, lyrics, duration, model version, created/updated dates |
 | `library_index.json` | All songs in one file, grep/jq-friendly |
-| `--wav` | Optional: triggers Suno's lossless conversion and downloads the WAV alongside the MP3 (slower — one conversion request per song) |
+| `.json` | Full metadata — prompt, tags, lyrics, duration, model version, created/updated dates |
+| `.jpg` | Cover art linekd in the json |
+| `--m4a` | Audio (Suno's M4A stream) linked in the json (free, as it is the stream you hear, when playing) |
+| `--wav` | Optional: triggers Suno's lossless conversion and downloads the WAV alongside the MP3 (slower — one conversion request per song, costs a download credit) |
 
 ## Important
 
-- **Personal backup of your own creations only.** Do not scrape other users' libraries.
+- **Personal backup of your own creations only.** Do not scrape other users' libraries (I think it does not work anyways).
 - **Plan requirements (partly unverified):** confirmed working end-to-end on a **Pro** plan. Metadata and cover art don't depend on your plan. Free-tier **audio** is untested — Suno removed the web-UI *download button* for free accounts after the 2026 Warner deal, but this tool pulls audio straight from the library API's CDN URLs rather than using that button, so it may still work on free. If you try it on a free plan, a report (issue/PR) is welcome.
 - **Undocumented API** — Suno can change or break this at any time. Run `suno-archiver doctor` if something stops working, and check for updates with `pip install -U suno-archiver`.
 
